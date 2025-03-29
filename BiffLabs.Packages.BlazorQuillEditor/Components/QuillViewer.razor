@@ -1,0 +1,10 @@
+﻿@namespace BiffLabs.Packages.BlazorQuillEditor
+
+<div class="ql-editor">
+    @((MarkupString)Content)
+</div>
+
+@code {
+    [Parameter, EditorRequired]
+    public string Content { get; set; } = string.Empty;
+}

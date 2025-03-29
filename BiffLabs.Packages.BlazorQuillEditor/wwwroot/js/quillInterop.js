@@ -1,9 +1,10 @@
 ﻿window.quillEditor = {
     editors: {},
 
-    createEditor: function (elementId) {
+    createEditor: function (elementId, toolbarOptions) {
         const options = {
-            theme: 'snow'
+            theme: 'snow',
+            modules: { toolbar: toolbarOptions }
         };
         this.editors[elementId] = new Quill('#' + elementId, options);
     },

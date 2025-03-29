@@ -5,7 +5,7 @@
 		<Nullable>enable</Nullable>
 		<ImplicitUsings>enable</ImplicitUsings>
 		<PackageId>BlazorQuillEditor</PackageId>
-		<Version>0.1.2</Version>
+		<Version>0.1.4</Version>
 		<Authors>Phil Larner</Authors>
 		<Company>Biff Labs</Company>
 		<Description>Reusable Quill.js rich-text editor component for Blazor applications.</Description>
@@ -18,9 +18,8 @@
 
 	<ItemGroup>
 		<SupportedPlatform Include="browser" />
-	</ItemGroup>
-
-	<ItemGroup>
-		<PackageReference Include="Microsoft.AspNetCore.Components.Web" Version="9.0.2" />
+		<None Include="docs\README.md" />
+		<None Include="docs\LICENSE" />
+		<PackageReference Include="Microsoft.AspNetCore.Components.Web" Version="9.0.3" />
 	</ItemGroup>
 </Project>

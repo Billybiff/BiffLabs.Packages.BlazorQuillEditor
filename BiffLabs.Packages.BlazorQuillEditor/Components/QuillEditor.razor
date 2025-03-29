@@ -1,27 +1,31 @@
-﻿@namespace BiffLabs.Packages.BlazorQuillEditor.Components
-@using Microsoft.JSInterop
+﻿@using Microsoft.JSInterop
 @inject IJSRuntime JSRuntime
 
 <div id="@EditorId"></div>
 
 @code {
-    [Parameter]
-    public string EditorId { get; set; } = $"quill-{Guid.NewGuid()}";
-
-    [Parameter]
-    public string Content { get; set; } = "";
+    [Parameter] public string EditorId { get; set; } = $"quill-editor-{Guid.NewGuid()}";
+    [Parameter] public string Content { get; set; } = "";
+    [Parameter] public string[][]? ToolbarOptions { get; set; } = null;
 
     protected override async Task OnAfterRenderAsync(bool firstRender)
     {
         if (firstRender)
         {
-            await JSRuntime.InvokeVoidAsync("quillEditor.createEditor", EditorId);
+            // Default toolbar if none provided
+            var toolbar = ToolbarOptions ?? new[]
+            {
+                new[] { "bold", "italic", "underline", "strike" },
+                new[] { "blockquote", "code-block" },
+                new[] { "link", "image" },
+                new[] { "clean" }
+            };
+
+            await JSRuntime.InvokeVoidAsync("quillEditor.createEditor", EditorId, toolbar);
             await JSRuntime.InvokeVoidAsync("quillEditor.setEditorContent", EditorId, Content);
         }
     }
 
     public async Task<string> GetContentAsync()
-    {
-        return await JSRuntime.InvokeAsync<string>("quillEditor.getEditorContent", EditorId);
-    }
+        => await JSRuntime.InvokeAsync<string>("quillEditor.getEditorContent", EditorId);
 }
