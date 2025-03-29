@@ -1,0 +1,27 @@
+﻿@namespace BiffLabs.Packages.BlazorQuillEditor.Components
+@using Microsoft.JSInterop
+@inject IJSRuntime JSRuntime
+
+<div id="@EditorId"></div>
+
+@code {
+    [Parameter]
+    public string EditorId { get; set; } = $"quill-{Guid.NewGuid()}";
+
+    [Parameter]
+    public string Content { get; set; } = "";
+
+    protected override async Task OnAfterRenderAsync(bool firstRender)
+    {
+        if (firstRender)
+        {
+            await JSRuntime.InvokeVoidAsync("quillEditor.createEditor", EditorId);
+            await JSRuntime.InvokeVoidAsync("quillEditor.setEditorContent", EditorId, Content);
+        }
+    }
+
+    public async Task<string> GetContentAsync()
+    {
+        return await JSRuntime.InvokeAsync<string>("quillEditor.getEditorContent", EditorId);
+    }
+}
