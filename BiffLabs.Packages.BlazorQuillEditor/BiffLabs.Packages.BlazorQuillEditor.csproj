@@ -1,4 +1,4 @@
-<Project Sdk="Microsoft.NET.Sdk.Razor">
+﻿<Project Sdk="Microsoft.NET.Sdk.Razor">
 
   <PropertyGroup>
     <TargetFramework>net9.0</TargetFramework>
@@ -11,7 +11,7 @@
 	  <Description>Reusable Quill.js rich-text editor component for Blazor applications.</Description>
 	  <PackageTags>Blazor;Quill;RichText;Editor</PackageTags>
 	  <PackageLicenseExpression>MIT</PackageLicenseExpression>
-	  <RepositoryUrl>https://github.com/your-repo/blazor-quill-editor</RepositoryUrl>
+	  <RepositoryUrl>https://github.com/Billybiff/BiffLabs.Packages.BlazorQuillEditor</RepositoryUrl>
 	  <GenerateDocumentationFile>true</GenerateDocumentationFile>
   </PropertyGroup>
 
