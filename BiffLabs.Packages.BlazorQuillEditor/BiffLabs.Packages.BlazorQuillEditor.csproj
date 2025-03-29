@@ -1,30 +1,33 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk.Razor">
 
-  <PropertyGroup>
-    <TargetFramework>net9.0</TargetFramework>
-    <Nullable>enable</Nullable>
-    <ImplicitUsings>enable</ImplicitUsings>
-	  <PackageId>BlazorQuillEditor</PackageId>
-	  <Version>0.1.1</Version>
-	  <Authors>Phil Larner</Authors>
-	  <Company>Biff Labs</Company>
-	  <Description>Reusable Quill.js rich-text editor component for Blazor applications.</Description>
-	  <PackageTags>Blazor;Quill;RichText;Editor</PackageTags>
-	  <PackageLicenseExpression>MIT</PackageLicenseExpression>
-	  <RepositoryUrl>https://github.com/Billybiff/BiffLabs.Packages.BlazorQuillEditor</RepositoryUrl>
-	  <GenerateDocumentationFile>true</GenerateDocumentationFile>
-  </PropertyGroup>
+	<PropertyGroup>
+		<TargetFramework>net9.0</TargetFramework>
+		<Nullable>enable</Nullable>
+		<ImplicitUsings>enable</ImplicitUsings>
+		<PackageId>BlazorQuillEditor</PackageId>
+		<Version>0.1.1</Version>
+		<Authors>Phil Larner</Authors>
+		<Company>Biff Labs</Company>
+		<Description>Reusable Quill.js rich-text editor component for Blazor applications.</Description>
+		<PackageTags>Blazor;Quill;RichText;Editor</PackageTags>
+		<PackageLicenseExpression>MIT</PackageLicenseExpression>
+		<RepositoryUrl>https://github.com/Billybiff/BiffLabs.Packages.BlazorQuillEditor</RepositoryUrl>
+		<GenerateDocumentationFile>true</GenerateDocumentationFile>
+	</PropertyGroup>
 
 
-  <ItemGroup>
-    <SupportedPlatform Include="browser" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <PackageReference Include="Microsoft.AspNetCore.Components.Web" Version="9.0.2" />
-  </ItemGroup>
-	
 	<ItemGroup>
-		<EmbeddedResource Include="wwwroot\**\*.*" />
+		<SupportedPlatform Include="browser" />
 	</ItemGroup>
+
+	<ItemGroup>
+		<PackageReference Include="Microsoft.AspNetCore.Components.Web" Version="9.0.2" />
+	</ItemGroup>
+
+	<ItemGroup>
+		<Content Include="wwwroot\css\quill.snow.css" CopyToOutputDirectory="PreserveNewest" />
+		<Content Include="wwwroot\js\quill.js" CopyToOutputDirectory="PreserveNewest" />
+		<Content Include="wwwroot\js\quillInterop.js" CopyToOutputDirectory="PreserveNewest" />
+	</ItemGroup>
+
 </Project>
