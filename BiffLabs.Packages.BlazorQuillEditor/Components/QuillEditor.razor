@@ -1,4 +1,6 @@
-﻿@using Microsoft.JSInterop
+﻿@namespace BiffLabs.Packages.BlazorQuillEditor.Components
+
+@using Microsoft.JSInterop
 @inject IJSRuntime JSRuntime
 
 <div id="@EditorId"></div>
@@ -6,14 +8,13 @@
 @code {
     [Parameter] public string EditorId { get; set; } = $"quill-editor-{Guid.NewGuid()}";
     [Parameter] public string Content { get; set; } = "";
-    [Parameter] public string[][]? ToolbarOptions { get; set; } = null;
+    [Parameter] public object[]? ToolbarOptions { get; set; } = null;
 
     protected override async Task OnAfterRenderAsync(bool firstRender)
     {
         if (firstRender)
         {
-            // Default toolbar if none provided
-            var toolbar = ToolbarOptions ?? new[]
+            var toolbar = ToolbarOptions ?? new object[]
             {
                 new[] { "bold", "italic", "underline", "strike" },
                 new[] { "blockquote", "code-block" },

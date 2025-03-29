@@ -52,27 +52,27 @@ You can customise your editor toolbar easily:
 <QuillEditor @ref="editorRef" Content="@_content" ToolbarOptions="@FullToolbar" />
 
 @code {
-    private string _content = string.Empty;
+    private string _content = "";
     private QuillEditor? editorRef;
 
-    private string[][] FullToolbar => new[]
+    private object[] FullToolbar => new object[]
     {
         new[] { "bold", "italic", "underline", "strike" },
         new[] { "blockquote", "code-block" },
-        new[] { "header", "1", "2", "3", "4" },
-        new[] { "list", "ordered", "bullet" },
-        new[] { "script", "sub", "super" },
-        new[] { "indent", "-1", "+1" },
-        new[] { "direction", "rtl" },
-        new[] { "size", "small", "medium", "large", "huge" },
-        new[] { "color" },
-        new[] { "background" },
-        new[] { "font" },
-        new[] { "align" },
+        new object[] { new { header = new object[] { 1, 2, 3, 4, false } } },
+        new object[] { new { list = "ordered" }, new { list = "bullet" } },
+        new object[] { new { script = "sub" }, new { script = "super" } },
+        new object[] { new { indent = "-1" }, new { indent = "+1" } },
+        new object[] { new { direction = "rtl" } },
+        new object[] { new { size = new[] { "small", false, "large", "huge" } } },
+        new object[] { new { color = new string[] { } }, new { background = new string[] { } } },
+        new object[] { new { font = new string[] { } } },
+        new object[] { new { align = new string[] { } } },
         new[] { "link", "image", "video" },
         new[] { "clean" }
     };
 }
+
 
 Step 4: Add a Viewer for Read-only Content
 To render HTML content created by Quill editor, use:
