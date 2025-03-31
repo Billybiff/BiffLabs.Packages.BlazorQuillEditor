@@ -1,32 +1,55 @@
-﻿@namespace BiffLabs.Packages.BlazorQuillEditor.Components
-
-@using Microsoft.JSInterop
-@inject IJSRuntime JSRuntime
+﻿@using Microsoft.JSInterop
+@inject IJSRuntime JS
 
 <div id="@EditorId"></div>
 
 @code {
-    [Parameter] public string EditorId { get; set; } = $"quill-editor-{Guid.NewGuid()}";
-    [Parameter] public string Content { get; set; } = "";
-    [Parameter] public object[]? ToolbarOptions { get; set; } = null;
+    [Parameter] public string Content { get; set; } = string.Empty;
+    [Parameter] public EventCallback<string> ContentChanged { get; set; }
+    [Parameter] public object[]? ToolbarOptions { get; set; }
+    [Parameter] public bool EnableImageUpload { get; set; } = false;
+    [Parameter] public string ImageUploadUrl { get; set; } = "/upload-image";
+
+    private IJSObjectReference? _quill;
+    private string EditorId { get; } = $"quill-editor-{Guid.NewGuid()}";
+
+    public IJSObjectReference? Quill => _quill;
 
     protected override async Task OnAfterRenderAsync(bool firstRender)
     {
         if (firstRender)
         {
-            var toolbar = ToolbarOptions ?? new object[]
-            {
-                new[] { "bold", "italic", "underline", "strike" },
-                new[] { "blockquote", "code-block" },
-                new[] { "link", "image" },
-                new[] { "clean" }
-            };
+            var quillJs = await JS.InvokeAsync<IJSObjectReference>(
+                "import", "./_content/BiffLabs.Packages.BlazorQuillEditor/quill-blazor.js");
 
-            await JSRuntime.InvokeVoidAsync("quillEditor.createEditor", EditorId, toolbar);
-            await JSRuntime.InvokeVoidAsync("quillEditor.setEditorContent", EditorId, Content);
+            _quill = await quillJs.InvokeAsync<IJSObjectReference>("createQuillEditor", EditorId, Content, DotNetObjectReference.Create(this), ToolbarOptions);
+
+            if (EnableImageUpload)
+            {
+                await quillJs.InvokeVoidAsync("registerQuillImageHandler", _quill, ImageUploadUrl);
+            }
         }
     }
 
     public async Task<string> GetContentAsync()
-        => await JSRuntime.InvokeAsync<string>("quillEditor.getEditorContent", EditorId);
+    {
+        return _quill is null
+            ? string.Empty
+            : await _quill.InvokeAsync<string>("getHtml");
+    }
+
+    public async Task SetContentAsync(string content)
+    {
+        if (_quill is not null)
+        {
+            await _quill.InvokeVoidAsync("setHtml", content);
+        }
+    }
+
+    [JSInvokable]
+    public async Task OnContentChanged(string html)
+    {
+        Content = html;
+        await ContentChanged.InvokeAsync(html);
+    }
 }
