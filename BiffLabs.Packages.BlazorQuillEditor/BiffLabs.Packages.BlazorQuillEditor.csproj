@@ -15,11 +15,7 @@
 		<GenerateDocumentationFile>true</GenerateDocumentationFile>
 	</PropertyGroup>
 
-
 	<ItemGroup>
-		<SupportedPlatform Include="browser" />
-		<None Include="docs\README.md" />
-		<None Include="docs\LICENSE" />
-		<PackageReference Include="Microsoft.AspNetCore.Components.Web" Version="9.0.3" />
+		<FrameworkReference Include="Microsoft.AspNetCore.App" />
 	</ItemGroup>
 </Project>

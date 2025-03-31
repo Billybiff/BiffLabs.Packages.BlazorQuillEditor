@@ -20,7 +20,7 @@
         if (firstRender)
         {
             var quillJs = await JS.InvokeAsync<IJSObjectReference>(
-                "import", "./_content/BiffLabs.Packages.BlazorQuillEditor/quill-blazor.js");
+                "import", "./_content/BlazorQuillEditor/js/quill-blazor.js");
 
             _quill = await quillJs.InvokeAsync<IJSObjectReference>("createQuillEditor", EditorId, Content, DotNetObjectReference.Create(this), ToolbarOptions);
 
